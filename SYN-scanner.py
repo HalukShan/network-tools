@@ -13,16 +13,16 @@ def scan():
             filtered.append(str(port) + "    Filtered")
         elif rev.haslayer(TCP):
             if rev.getlayer(TCP).flags == "SA":
-                send(IP(dst=dst_ip) / TCP(sport=src_port, dport=dst_port, flags="R"))
+                send(IP(dst=dst_ip) / TCP(sport=src_port, dport=dst_port, flags="RA"))
                 open.append(str(port) + "    Open")
-            elif rev.getlayer(TCP).flags == "R":
+            elif rev.getlayer(TCP).flags == "RA":
                 closed.append(str(port) + "    Closed")
         # Intercepted !
         elif rev.haslayer(ICMP):
             if int(rev.getlayer(ICMP).type) == 3 and int(rev.getlayer(ICMP).code) in [1, 2, 3, 9, 10, 13]:
                 print("Filtered")
                 filtered.append(rev)
-    print("     ", dst_ip)
+    print(dst_ip)
     for o in open:
         print(o)
     for f in filtered:
