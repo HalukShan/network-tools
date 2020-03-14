@@ -1,4 +1,4 @@
-# G-scanner
+# Scanners
 This is a rep of scanner scripts that I use to learn protocols and practice 
 in Python. These scanners are based 
 on the TCP or UDP protocols to scan alive ports on specified host.
