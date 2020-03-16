@@ -1,7 +1,20 @@
-# Scanners
-This is a rep of scanner scripts that I use to learn protocols and practice 
-in Python. These scanners are based 
-on the TCP or UDP protocols to scan alive ports on specified host.
+This is a rep of network tools that I use to learn protocols and practice 
+in Python. 
+## arpspoof
+ARP Spoofing... Usage
+```
+sudo python3 arpspoof.py target_ip gateway_ip interface
+```
+## arppoison-cross-vlan
+ARP posion cross vlan, base on the switch with trunk environment, the 
+script can cross vlan to broke the other vlan devices network conncetion 
+with gateway, but the other devices must locate in the another side 
+of the trunk, usage
+```
+sudo python3 arppoison-cross-vlan.py -g gateway_ip -sv self_vlan -tv (single or range of vlan like 2-100) -i iface
+```
+
+
 
 ## SYN Scanner
 This scanner is based on the incomplete TCP handshake 
